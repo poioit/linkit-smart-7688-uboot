@@ -980,6 +980,11 @@ struct chip_info *chip_prob(void)
 	u32 jedec, weight;
 	int i;
 
+
+#if 1
+	match = &chips_data[8];	//assign default flash
+	printf("apply default flash\n");
+#else
 	raspi_read_devid(buf, 5);
 	jedec = (u32)((u32)(buf[1] << 24) | ((u32)buf[2] << 16) | ((u32)buf[3] <<8) | (u32)buf[4]);
 
@@ -1013,6 +1018,7 @@ struct chip_info *chip_prob(void)
 		}
 	}
 	printf("Warning: un-recognized chip ID, please update bootloader!\n");
+#endif
 
 	return match;
 }
